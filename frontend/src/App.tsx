@@ -21,6 +21,31 @@ import Products from './pages/Products';
 import PurchaseOrders from './pages/PurchaseOrders';
 import SalesOrders from './pages/SalesOrders';
 import Reports from './pages/Reports';
+import TrialBalance from './pages/reports/TrialBalance';
+import BalanceSheet from './pages/reports/BalanceSheet';
+import IncomeStatement from './pages/reports/IncomeStatement';
+import GLAccountSummary from './pages/reports/GLAccountSummary';
+import APAging from './pages/reports/APAging';
+import ARAging from './pages/reports/ARAging';
+import VendorLedger from './pages/reports/VendorLedger';
+import CustomerLedger from './pages/reports/CustomerLedger';
+import ContractSummary from './pages/reports/ContractSummary';
+import ContractFundingStatus from './pages/reports/ContractFundingStatus';
+import ProjectBudgetVsActual from './pages/reports/ProjectBudgetVsActual';
+import LaborDistribution from './pages/reports/LaborDistribution';
+import TimesheetDetail from './pages/reports/TimesheetDetail';
+import Utilization from './pages/reports/Utilization';
+import ExpenseByCategory from './pages/reports/ExpenseByCategory';
+import ExpenseByProject from './pages/reports/ExpenseByProject';
+import EmployeeRoster from './pages/reports/EmployeeRoster';
+import PayrollSummary from './pages/reports/PayrollSummary';
+import LeaveBalance from './pages/reports/LeaveBalance';
+import LaborCostByDepartment from './pages/reports/LaborCostByDepartment';
+import RevenueByCustomer from './pages/reports/RevenueByCustomer';
+import InvoicePaymentHistory from './pages/reports/InvoicePaymentHistory';
+import BillPaymentHistory from './pages/reports/BillPaymentHistory';
+import POSummary from './pages/reports/POSummary';
+import UnallowableCosts from './pages/reports/UnallowableCosts';
 import AuditLog from './pages/AuditLog';
 import Users from './pages/Users';
 import Settings from './pages/Settings';
@@ -51,6 +76,31 @@ export default function App() {
         <Route path="/purchase-orders" element={<PurchaseOrders />} />
         <Route path="/sales-orders" element={<SalesOrders />} />
         <Route path="/reports" element={<Reports />} />
+        <Route path="/reports/trial-balance" element={<TrialBalance />} />
+        <Route path="/reports/balance-sheet" element={<BalanceSheet />} />
+        <Route path="/reports/income-statement" element={<IncomeStatement />} />
+        <Route path="/reports/general-ledger-detail" element={<GLAccountSummary />} />
+        <Route path="/reports/ap-aging" element={<APAging />} />
+        <Route path="/reports/ar-aging" element={<ARAging />} />
+        <Route path="/reports/vendor-ledger" element={<VendorLedger />} />
+        <Route path="/reports/customer-ledger" element={<CustomerLedger />} />
+        <Route path="/reports/contract-status" element={<ContractSummary />} />
+        <Route path="/reports/contract-funding" element={<ContractFundingStatus />} />
+        <Route path="/reports/project-budget-vs-actual" element={<ProjectBudgetVsActual />} />
+        <Route path="/reports/project-labor-distribution" element={<LaborDistribution />} />
+        <Route path="/reports/timesheet-summary" element={<TimesheetDetail />} />
+        <Route path="/reports/labor-utilization" element={<Utilization />} />
+        <Route path="/reports/expense-summary" element={<ExpenseByCategory />} />
+        <Route path="/reports/expense-by-project" element={<ExpenseByProject />} />
+        <Route path="/reports/employee-roster" element={<EmployeeRoster />} />
+        <Route path="/reports/payroll-summary" element={<PayrollSummary />} />
+        <Route path="/reports/leave-balance" element={<LeaveBalance />} />
+        <Route path="/reports/labor-cost-by-department" element={<LaborCostByDepartment />} />
+        <Route path="/reports/revenue-by-customer" element={<RevenueByCustomer />} />
+        <Route path="/reports/invoice-payment-history" element={<InvoicePaymentHistory />} />
+        <Route path="/reports/bill-payment-history" element={<BillPaymentHistory />} />
+        <Route path="/reports/po-summary" element={<POSummary />} />
+        <Route path="/reports/unallowable-costs" element={<UnallowableCosts />} />
         <Route path="/audit-log" element={<AuditLog />} />
         <Route path="/users" element={<Users />} />
         <Route path="/settings" element={<Settings />} />
