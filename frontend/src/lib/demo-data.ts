@@ -77,13 +77,13 @@ const journalEntries = [
 ];
 
 const bills = [
-  { id: "b1", bill_number: "BILL-001", vendor_id: "v1", vendor: vendors[0], bill_date: "2026-04-01", due_date: "2026-05-01", total_amount: 15000, status: "PAID" },
-  { id: "b2", bill_number: "BILL-002", vendor_id: "v2", vendor: vendors[1], bill_date: "2026-04-10", due_date: "2026-05-25", total_amount: 8500, status: "APPROVED" },
+  { id: "b1", bill_number: "BILL-001", vendor_id: "v1", vendor: vendors[0], bill_date: "2026-04-01", due_date: "2026-05-01", total_amount: 15000, amount_paid: 15000, status: "PAID" },
+  { id: "b2", bill_number: "BILL-002", vendor_id: "v2", vendor: vendors[1], bill_date: "2026-04-10", due_date: "2026-05-25", total_amount: 8500, amount_paid: 0, status: "APPROVED" },
 ];
 
 const invoices = [
-  { id: "i1", invoice_number: "INV-2026-001", customer_id: "c1", customer: customers[0], invoice_date: "2026-04-01", due_date: "2026-05-01", total_amount: 125000, status: "PAID" },
-  { id: "i2", invoice_number: "INV-2026-002", customer_id: "c2", customer: customers[1], invoice_date: "2026-04-15", due_date: "2026-05-15", total_amount: 65000, status: "SENT" },
+  { id: "i1", invoice_number: "INV-2026-001", customer_id: "c1", customer: customers[0], invoice_date: "2026-04-01", due_date: "2026-05-01", total_amount: 125000, amount_paid: 125000, status: "PAID" },
+  { id: "i2", invoice_number: "INV-2026-002", customer_id: "c2", customer: customers[1], invoice_date: "2026-04-15", due_date: "2026-05-15", total_amount: 65000, amount_paid: 0, status: "SENT" },
 ];
 
 const setupData: Record<string, any[]> = {
@@ -111,10 +111,65 @@ const auditLogs = [
   { id: "al3", action: "UPDATE", entity_type: "Account", entity_id: "a4", ip_address: "192.168.1.100", created_at: "2026-04-20T10:30:00Z", user: DEMO_USER },
 ];
 
+const trialBalanceData = {
+  accounts: [
+    { account_id: 1, account_number: "1000", account_name: "Cash", account_type: "ASSET", debit_balance: "485000.00", credit_balance: "0.00" },
+    { account_id: 2, account_number: "1100", account_name: "Accounts Receivable", account_type: "ASSET", debit_balance: "190000.00", credit_balance: "0.00" },
+    { account_id: 3, account_number: "1200", account_name: "Prepaid Expenses", account_type: "ASSET", debit_balance: "12000.00", credit_balance: "0.00" },
+    { account_id: 4, account_number: "1500", account_name: "Equipment", account_type: "ASSET", debit_balance: "75000.00", credit_balance: "0.00" },
+    { account_id: 5, account_number: "2000", account_name: "Accounts Payable", account_type: "LIABILITY", debit_balance: "0.00", credit_balance: "45000.00" },
+    { account_id: 6, account_number: "2100", account_name: "Accrued Liabilities", account_type: "LIABILITY", debit_balance: "0.00", credit_balance: "32000.00" },
+    { account_id: 7, account_number: "3000", account_name: "Retained Earnings", account_type: "EQUITY", debit_balance: "0.00", credit_balance: "250000.00" },
+    { account_id: 8, account_number: "4000", account_name: "Service Revenue", account_type: "REVENUE", debit_balance: "0.00", credit_balance: "325000.00" },
+    { account_id: 9, account_number: "4100", account_name: "Contract Revenue", account_type: "REVENUE", debit_balance: "0.00", credit_balance: "190000.00" },
+    { account_id: 10, account_number: "5000", account_name: "Direct Labor", account_type: "EXPENSE", debit_balance: "45000.00", credit_balance: "0.00" },
+    { account_id: 11, account_number: "5100", account_name: "Direct Materials", account_type: "EXPENSE", debit_balance: "12000.00", credit_balance: "0.00" },
+    { account_id: 12, account_number: "6000", account_name: "Overhead", account_type: "EXPENSE", debit_balance: "15000.00", credit_balance: "0.00" },
+    { account_id: 13, account_number: "6100", account_name: "G&A Expense", account_type: "EXPENSE", debit_balance: "8000.00", credit_balance: "0.00" },
+  ],
+};
+
+const balanceSheetData = {
+  assets: [
+    { account_number: "1000", name: "Cash", balance: 485000 },
+    { account_number: "1100", name: "Accounts Receivable", balance: 190000 },
+    { account_number: "1200", name: "Prepaid Expenses", balance: 12000 },
+    { account_number: "1500", name: "Equipment", balance: 75000 },
+  ],
+  liabilities: [
+    { account_number: "2000", name: "Accounts Payable", balance: 45000 },
+    { account_number: "2100", name: "Accrued Liabilities", balance: 32000 },
+  ],
+  equity: [
+    { account_number: "3000", name: "Retained Earnings", balance: 250000 },
+    { account_number: "3100", name: "Current Year Earnings", balance: 435000 },
+  ],
+  total_assets: 762000, total_liabilities: 77000, total_equity: 685000,
+};
+
+const incomeStatementData = {
+  revenue: [
+    { account_number: "4000", name: "Service Revenue", amount: 325000 },
+    { account_number: "4100", name: "Contract Revenue", amount: 190000 },
+  ],
+  expenses: [
+    { account_number: "5000", name: "Direct Labor", amount: 45000 },
+    { account_number: "5100", name: "Direct Materials", amount: 12000 },
+    { account_number: "6000", name: "Overhead", amount: 15000 },
+    { account_number: "6100", name: "G&A Expense", amount: 8000 },
+  ],
+  total_revenue: 515000, total_expenses: 80000, net_income: 435000,
+};
+
 export function getDemoResponse(url: string, method: string): any {
   const path = url.replace(/^\/api/, '').replace(/\?.*$/, '');
   if (method === 'POST' && path === '/login') return { token: "demo-token", user: DEMO_USER };
   if (method !== 'GET') return { message: 'Success' };
+
+  // Report endpoints
+  if (path === '/reports/trial-balance') return trialBalanceData;
+  if (path === '/reports/balance-sheet') return balanceSheetData;
+  if (path === '/reports/income-statement') return incomeStatementData;
 
   const routes: Record<string, any[]> = {
     '/accounts': accounts, '/vendors': vendors, '/customers': customers, '/contracts': contracts,

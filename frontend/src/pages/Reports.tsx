@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { BarChart3, FileText, TrendingUp, Clock, Receipt, ShoppingCart, Users, Shield, BookOpen, DollarSign } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface ReportDef {
   slug: string;
@@ -131,6 +130,7 @@ export default function Reports() {
 
   const totalReports = REPORT_CATEGORIES.reduce((sum, c) => sum + c.reports.length, 0);
   const availableReports = REPORT_CATEGORIES.reduce((sum, c) => sum + c.reports.filter((r) => r.available).length, 0);
+  const activeCat = REPORT_CATEGORIES.find((c) => c.key === activeTab) || REPORT_CATEGORIES[0];
 
   return (
     <div className="space-y-6">
@@ -144,49 +144,51 @@ export default function Reports() {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="flex flex-wrap h-auto gap-1">
-          {REPORT_CATEGORIES.map((cat) => (
-            <TabsTrigger key={cat.key} value={cat.key} className="flex items-center gap-1.5">
-              {cat.icon}
-              <span className="hidden sm:inline">{cat.label}</span>
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
+      <div className="flex flex-wrap gap-1 rounded-lg bg-muted p-1">
         {REPORT_CATEGORIES.map((cat) => (
-          <TabsContent key={cat.key} value={cat.key} className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {cat.reports.map((report) => (
-                <Card
-                  key={report.slug}
-                  className={`cursor-pointer transition-all ${
-                    report.available
-                      ? 'hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'
-                      : 'opacity-60 cursor-not-allowed'
-                  }`}
-                  onClick={() => handleReportClick(report)}
-                >
-                  <CardHeader className="pb-2">
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="text-sm font-semibold">{report.name}</CardTitle>
-                      <Badge className={report.available
-                        ? 'bg-green-600/20 text-green-400 border-green-600/30'
-                        : 'bg-gray-600/20 text-gray-400 border-gray-600/30'
-                      }>
-                        {report.available ? 'Available' : 'Coming Soon'}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">{report.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
+          <button
+            key={cat.key}
+            onClick={() => setActiveTab(cat.key)}
+            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+              activeTab === cat.key
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {cat.icon}
+            <span className="hidden sm:inline">{cat.label}</span>
+          </button>
         ))}
-      </Tabs>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {activeCat.reports.map((report) => (
+          <Card
+            key={report.slug}
+            className={`cursor-pointer transition-all ${
+              report.available
+                ? 'hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'
+                : 'opacity-60 cursor-not-allowed'
+            }`}
+            onClick={() => handleReportClick(report)}
+          >
+            <CardHeader className="pb-2">
+              <div className="flex items-start justify-between">
+                <CardTitle className="text-sm font-semibold">{report.name}</CardTitle>
+                <Badge className={report.available
+                  ? 'bg-green-600/20 text-green-400 border-green-600/30'
+                  : 'bg-gray-600/20 text-gray-400 border-gray-600/30'
+                }>
+                  {report.available ? 'Available' : 'Coming Soon'}
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">{report.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
