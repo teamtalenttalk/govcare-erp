@@ -100,9 +100,38 @@ const setupData: Record<string, any[]> = {
   ],
 };
 
+const expenses = [
+  { id: "ex1", expense_number: "EXP-001", employee_id: "e1", employee: employees[0], project_id: "p1", project: projects[0], date: "2026-04-05", category: "TRAVEL", description: "Client site visit - airfare", amount: 850, status: "APPROVED" },
+  { id: "ex2", expense_number: "EXP-002", employee_id: "e3", employee: employees[2], project_id: "p1", project: projects[0], date: "2026-04-08", category: "MEALS", description: "Team lunch - project kickoff", amount: 120, status: "APPROVED" },
+  { id: "ex3", expense_number: "EXP-003", employee_id: "e2", employee: employees[1], project_id: "p3", project: projects[2], date: "2026-04-12", category: "SUPPLIES", description: "Security testing tools license", amount: 450, status: "PENDING" },
+  { id: "ex4", expense_number: "EXP-004", employee_id: "e4", employee: employees[3], project_id: "p2", project: projects[1], date: "2026-04-15", category: "EQUIPMENT", description: "AWS test environment credits", amount: 2400, status: "APPROVED" },
+];
+
+const leaves = [
+  { id: "lv1", employee_id: "e1", employee: employees[0], leave_type: "PTO", start_date: "2026-05-01", end_date: "2026-05-03", days: 3, status: "APPROVED", reason: "Family vacation" },
+  { id: "lv2", employee_id: "e5", employee: employees[4], leave_type: "SICK", start_date: "2026-04-18", end_date: "2026-04-18", days: 1, status: "APPROVED", reason: "Medical appointment" },
+];
+
+const payrollRuns = [
+  { id: "pr1", run_number: "PR-2026-07", period_start: "2026-03-16", period_end: "2026-03-31", run_date: "2026-04-01", total_gross: 48500, total_deductions: 12125, total_net: 36375, employee_count: 5, status: "COMPLETED" },
+  { id: "pr2", run_number: "PR-2026-08", period_start: "2026-04-01", period_end: "2026-04-15", run_date: "2026-04-16", total_gross: 48500, total_deductions: 12125, total_net: 36375, employee_count: 5, status: "COMPLETED" },
+];
+
+const purchaseOrders = [
+  { id: "po1", po_number: "PO-001", vendor_id: "v1", vendor: vendors[0], order_date: "2026-04-01", delivery_date: "2026-04-15", total_amount: 25000, status: "RECEIVED", items_count: 3 },
+  { id: "po2", po_number: "PO-002", vendor_id: "v3", vendor: vendors[2], order_date: "2026-04-10", delivery_date: "2026-05-01", total_amount: 12000, status: "ORDERED", items_count: 2 },
+];
+
+const salesOrders = [
+  { id: "so1", order_number: "SO-001", customer_id: "c1", customer: customers[0], order_date: "2026-04-01", total_amount: 125000, status: "FULFILLED" },
+  { id: "so2", order_number: "SO-002", customer_id: "c2", customer: customers[1], order_date: "2026-04-10", total_amount: 65000, status: "IN_PROGRESS" },
+];
+
 const timesheets = [
   { id: "t1", timesheet_number: "TS-W15-001", employee_id: "e1", employee: employees[0], project_id: "p1", project: projects[0], week_ending: "2026-04-12", total_hours: 40, status: "APPROVED" },
   { id: "t2", timesheet_number: "TS-W15-002", employee_id: "e2", employee: employees[1], project_id: "p3", project: projects[2], week_ending: "2026-04-12", total_hours: 38, status: "APPROVED" },
+  { id: "t3", timesheet_number: "TS-W16-001", employee_id: "e1", employee: employees[0], project_id: "p1", project: projects[0], week_ending: "2026-04-19", total_hours: 42, status: "SUBMITTED" },
+  { id: "t4", timesheet_number: "TS-W16-002", employee_id: "e4", employee: employees[3], project_id: "p2", project: projects[1], week_ending: "2026-04-19", total_hours: 40, status: "SUBMITTED" },
 ];
 
 const auditLogs = [
@@ -175,7 +204,8 @@ export function getDemoResponse(url: string, method: string): any {
     '/accounts': accounts, '/vendors': vendors, '/customers': customers, '/contracts': contracts,
     '/projects': projects, '/employees': employees, '/journal-entries': journalEntries,
     '/bills': bills, '/invoices': invoices, '/timesheets': timesheets, '/tasks': [],
-    '/expenses': [], '/leaves': [], '/payroll': [], '/purchase-orders': [], '/sales-orders': [],
+    '/expenses': expenses, '/leaves': leaves, '/payroll': payrollRuns,
+    '/purchase-orders': purchaseOrders, '/sales-orders': salesOrders,
     '/audit-logs': auditLogs, '/users': [DEMO_USER], '/products': [],
   };
 

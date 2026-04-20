@@ -46,6 +46,15 @@ import InvoicePaymentHistory from './pages/reports/InvoicePaymentHistory';
 import BillPaymentHistory from './pages/reports/BillPaymentHistory';
 import POSummary from './pages/reports/POSummary';
 import UnallowableCosts from './pages/reports/UnallowableCosts';
+import AccountActivity from './pages/reports/AccountActivity';
+import OpenBills from './pages/reports/OpenBills';
+import OpenInvoices from './pages/reports/OpenInvoices';
+import ContractProfitability from './pages/reports/ContractProfitability';
+import ContractBillingSummary from './pages/reports/ContractBillingSummary';
+import WBSCostReport from './pages/reports/WBSCostReport';
+import EmployeeExpenseReport from './pages/reports/EmployeeExpenseReport';
+import ExpensePolicyViolations from './pages/reports/ExpensePolicyViolations';
+import ReceivingReport from './pages/reports/ReceivingReport';
 import AuditLog from './pages/AuditLog';
 import Users from './pages/Users';
 import Settings from './pages/Settings';
@@ -101,6 +110,15 @@ export default function App() {
         <Route path="/reports/bill-payment-history" element={<BillPaymentHistory />} />
         <Route path="/reports/po-summary" element={<POSummary />} />
         <Route path="/reports/unallowable-costs" element={<UnallowableCosts />} />
+        <Route path="/reports/account-activity" element={<AccountActivity />} />
+        <Route path="/reports/open-bills" element={<OpenBills />} />
+        <Route path="/reports/open-invoices" element={<OpenInvoices />} />
+        <Route path="/reports/contract-profitability" element={<ContractProfitability />} />
+        <Route path="/reports/contract-billing-summary" element={<ContractBillingSummary />} />
+        <Route path="/reports/wbs-cost-report" element={<WBSCostReport />} />
+        <Route path="/reports/employee-expense-report" element={<EmployeeExpenseReport />} />
+        <Route path="/reports/expense-policy-violations" element={<ExpensePolicyViolations />} />
+        <Route path="/reports/receiving-report" element={<ReceivingReport />} />
         <Route path="/audit-log" element={<AuditLog />} />
         <Route path="/users" element={<Users />} />
         <Route path="/settings" element={<Settings />} />

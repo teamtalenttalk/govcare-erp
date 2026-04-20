@@ -27,7 +27,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
       { slug: 'income-statement', name: 'Income Statement', description: 'Revenue and expenses for a reporting period', available: true },
       { slug: 'general-ledger-detail', name: 'General Ledger Detail', description: 'All transactions posted to each account', available: true },
       { slug: 'journal-entry-listing', name: 'Journal Entry Listing', description: 'Complete list of journal entries by date range', available: true },
-      { slug: 'account-activity', name: 'Account Activity', description: 'Transaction activity for a specific account', available: false },
+      { slug: 'account-activity', name: 'Account Activity', description: 'Transaction activity for a specific account', available: true },
     ],
   },
   {
@@ -37,7 +37,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
       { slug: 'vendor-ledger', name: 'Vendor Ledger', description: 'Transaction history for each vendor', available: true },
       { slug: 'payment-history', name: 'Payment History', description: 'All payments made to vendors', available: true },
       { slug: 'bill-payment-history', name: 'Bill Payment History', description: 'Detailed payment history for all bills', available: true },
-      { slug: 'open-bills', name: 'Open Bills', description: 'All unpaid vendor bills', available: false },
+      { slug: 'open-bills', name: 'Open Bills', description: 'All unpaid vendor bills', available: true },
     ],
   },
   {
@@ -47,7 +47,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
       { slug: 'customer-ledger', name: 'Customer Ledger', description: 'Transaction history for each customer', available: true },
       { slug: 'revenue-by-customer', name: 'Revenue by Customer', description: 'Revenue breakdown per customer', available: true },
       { slug: 'invoice-payment-history', name: 'Invoice Payment History', description: 'Detailed payment history for all invoices', available: true },
-      { slug: 'open-invoices', name: 'Open Invoices', description: 'All unpaid customer invoices', available: false },
+      { slug: 'open-invoices', name: 'Open Invoices', description: 'All unpaid customer invoices', available: true },
     ],
   },
   {
@@ -55,8 +55,8 @@ const REPORT_CATEGORIES: ReportCategory[] = [
     reports: [
       { slug: 'contract-status', name: 'Contract Status', description: 'Overview of all contracts and their current status', available: true },
       { slug: 'contract-funding', name: 'Contract Funding', description: 'Funded vs. billed amounts per contract', available: true },
-      { slug: 'contract-profitability', name: 'Contract Profitability', description: 'Revenue minus costs for each contract', available: false },
-      { slug: 'contract-billing-summary', name: 'Billing Summary', description: 'Monthly billing totals by contract', available: false },
+      { slug: 'contract-profitability', name: 'Contract Profitability', description: 'Revenue minus costs for each contract', available: true },
+      { slug: 'contract-billing-summary', name: 'Billing Summary', description: 'Monthly billing totals by contract', available: true },
     ],
   },
   {
@@ -64,8 +64,8 @@ const REPORT_CATEGORIES: ReportCategory[] = [
     reports: [
       { slug: 'project-cost-summary', name: 'Project Cost Summary', description: 'Total costs accumulated per project', available: true },
       { slug: 'project-budget-vs-actual', name: 'Budget vs. Actual', description: 'Budgeted amounts compared to actuals', available: true },
-      { slug: 'project-labor-distribution', name: 'Labor Distribution', description: 'Labor hours and costs allocated to projects', available: false },
-      { slug: 'wbs-cost-report', name: 'WBS Cost Report', description: 'Costs broken down by work breakdown structure', available: false },
+      { slug: 'project-labor-distribution', name: 'Labor Distribution', description: 'Labor hours and costs allocated to projects', available: true },
+      { slug: 'wbs-cost-report', name: 'WBS Cost Report', description: 'Costs broken down by work breakdown structure', available: true },
     ],
   },
   {
@@ -82,8 +82,8 @@ const REPORT_CATEGORIES: ReportCategory[] = [
     reports: [
       { slug: 'expense-summary', name: 'Expense Summary', description: 'Total expenses by category and period', available: true },
       { slug: 'expense-by-project', name: 'Expense by Project', description: 'Expenses allocated to each project', available: true },
-      { slug: 'employee-expense-report', name: 'Employee Expenses', description: 'Expense totals per employee', available: false },
-      { slug: 'expense-policy-violations', name: 'Policy Violations', description: 'Expenses exceeding policy limits', available: false },
+      { slug: 'employee-expense-report', name: 'Employee Expenses', description: 'Expense totals per employee', available: true },
+      { slug: 'expense-policy-violations', name: 'Policy Violations', description: 'Expenses exceeding policy limits', available: true },
     ],
   },
   {
@@ -92,7 +92,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
       { slug: 'purchase-order-status', name: 'PO Status', description: 'All purchase orders and their fulfillment status', available: true },
       { slug: 'po-summary', name: 'PO Summary Report', description: 'Purchase order summary with receiving status', available: true },
       { slug: 'vendor-spending', name: 'Vendor Spending', description: 'Total spend per vendor over time', available: true },
-      { slug: 'receiving-report', name: 'Receiving Report', description: 'Items received against purchase orders', available: false },
+      { slug: 'receiving-report', name: 'Receiving Report', description: 'Items received against purchase orders', available: true },
     ],
   },
   {
