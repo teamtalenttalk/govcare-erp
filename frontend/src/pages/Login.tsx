@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShieldCheck } from 'lucide-react';
 import { useAuthStore } from '../lib/auth';
+import { DEMO_MODE } from '../lib/demo-data';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -74,6 +75,11 @@ export default function Login() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
+            {DEMO_MODE && (
+              <p className="text-xs text-center text-muted-foreground mt-3">
+                Demo Mode — Enter any email/password to explore
+              </p>
+            )}
           </form>
         </CardContent>
       </Card>

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import api from './api';
+import { DEMO_MODE, DEMO_USER } from './demo-data';
 import type { User } from '../types';
 
 interface AuthState {
@@ -17,6 +18,12 @@ export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
 
   login: async (email: string, password: string) => {
+    if (DEMO_MODE) {
+      localStorage.setItem('govcare_token', 'demo-token');
+      localStorage.setItem('govcare_user', JSON.stringify(DEMO_USER));
+      set({ user: DEMO_USER as User, token: 'demo-token', isAuthenticated: true });
+      return;
+    }
     const response = await api.post('/login', { email, password });
     const { token, user } = response.data;
     localStorage.setItem('govcare_token', token);
