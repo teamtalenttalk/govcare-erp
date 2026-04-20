@@ -73,8 +73,8 @@ const REPORT_CATEGORIES: ReportCategory[] = [
     reports: [
       { slug: 'timesheet-summary', name: 'Timesheet Summary', description: 'Total hours by employee and period', available: true },
       { slug: 'labor-utilization', name: 'Labor Utilization', description: 'Direct vs. indirect hours per employee', available: true },
-      { slug: 'overtime-report', name: 'Overtime Report', description: 'Employees exceeding standard hours', available: false },
-      { slug: 'missing-timesheets', name: 'Missing Timesheets', description: 'Employees with missing or incomplete entries', available: false },
+      { slug: 'overtime-report', name: 'Overtime Report', description: 'Employees exceeding standard hours', available: true },
+      { slug: 'missing-timesheets', name: 'Missing Timesheets', description: 'Employees with missing or incomplete entries', available: true },
     ],
   },
   {
@@ -102,7 +102,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
       { slug: 'payroll-summary', name: 'Payroll Summary', description: 'Summary of all payroll runs with gross, deductions, and net pay', available: true },
       { slug: 'labor-cost-by-department', name: 'Labor Cost by Department', description: 'Monthly labor costs broken down by department', available: true },
       { slug: 'headcount-report', name: 'Headcount Report', description: 'Employee count by department and status', available: true },
-      { slug: 'turnover-report', name: 'Turnover Report', description: 'Employee separations and retention rates', available: false },
+      { slug: 'turnover-report', name: 'Turnover Report', description: 'Employee separations and retention rates', available: true },
       { slug: 'leave-balance', name: 'Leave Balances', description: 'Current leave balances for all employees', available: true },
     ],
   },
@@ -113,7 +113,7 @@ const REPORT_CATEGORIES: ReportCategory[] = [
       { slug: 'indirect-rate-calculation', name: 'Indirect Rate Calculation', description: 'Provisional and actual indirect rates', available: true },
       { slug: 'floor-check-report', name: 'Floor Check Report', description: 'Labor charging verification data', available: true },
       { slug: 'unallowable-costs', name: 'Unallowable Costs', description: 'Costs identified as unallowable per FAR 31', available: true },
-      { slug: 'dcaa-audit-trail', name: 'Audit Trail', description: 'Complete change log for DCAA audit readiness', available: false },
+      { slug: 'dcaa-audit-trail', name: 'Audit Trail', description: 'Complete change log for DCAA audit readiness', available: true },
     ],
   },
 ];

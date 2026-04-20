@@ -55,6 +55,11 @@ import WBSCostReport from './pages/reports/WBSCostReport';
 import EmployeeExpenseReport from './pages/reports/EmployeeExpenseReport';
 import ExpensePolicyViolations from './pages/reports/ExpensePolicyViolations';
 import ReceivingReport from './pages/reports/ReceivingReport';
+import OvertimeReport from './pages/reports/OvertimeReport';
+import MissingTimesheets from './pages/reports/MissingTimesheets';
+import TurnoverReport from './pages/reports/TurnoverReport';
+import DCAAAuditTrail from './pages/reports/DCAAAuditTrail';
+import IncurredCostSubmission from './pages/reports/IncurredCostSubmission';
 import AuditLog from './pages/AuditLog';
 import Users from './pages/Users';
 import Settings from './pages/Settings';
@@ -119,6 +124,11 @@ export default function App() {
         <Route path="/reports/employee-expense-report" element={<EmployeeExpenseReport />} />
         <Route path="/reports/expense-policy-violations" element={<ExpensePolicyViolations />} />
         <Route path="/reports/receiving-report" element={<ReceivingReport />} />
+        <Route path="/reports/overtime-report" element={<OvertimeReport />} />
+        <Route path="/reports/missing-timesheets" element={<MissingTimesheets />} />
+        <Route path="/reports/turnover-report" element={<TurnoverReport />} />
+        <Route path="/reports/dcaa-audit-trail" element={<DCAAAuditTrail />} />
+        <Route path="/reports/incurred-cost-submission" element={<IncurredCostSubmission />} />
         <Route path="/audit-log" element={<AuditLog />} />
         <Route path="/users" element={<Users />} />
         <Route path="/settings" element={<Settings />} />
