@@ -190,15 +190,90 @@ const incomeStatementData = {
   total_revenue: 515000, total_expenses: 80000, net_income: 435000,
 };
 
+// Phase 7 demo data
+const aiDemoAnswer = {
+  id: "ai-demo-1",
+  question: "",
+  answer: "Based on the current data, your total recognized revenue is $515,000.00 across 2 revenue accounts.",
+  category: "financial",
+  confidence: 90,
+  data: { total_revenue: 515000 },
+  timestamp: new Date().toISOString(),
+};
+
+const aiSuggestions = {
+  suggestions: [
+    { type: "warning", title: "Overdue Invoices", message: "You have 1 overdue invoice totaling $8,500. Consider following up.", action: "/invoices" },
+    { type: "info", title: "Draft Journal Entries", message: "1 journal entry is in draft. Review and post when ready.", action: "/journal-entries" },
+    { type: "tip", title: "Compliance Tip", message: "Remember to reconcile bank statements monthly for DCAA compliance.", action: null },
+  ],
+};
+
+const bankUnmatched = [
+  { id: "bt1", bank_account: "Primary", transaction_date: "2026-04-15", description: "Wire transfer - DoD payment", amount: 125000, type: "CREDIT", reference: "WT-2026-0412", status: "UNMATCHED" },
+  { id: "bt2", bank_account: "Primary", transaction_date: "2026-04-16", description: "ACH - CloudTech Solutions", amount: 15000, type: "DEBIT", reference: "ACH-8821", status: "UNMATCHED" },
+  { id: "bt3", bank_account: "Primary", transaction_date: "2026-04-18", description: "Payroll processing", amount: 45000, type: "DEBIT", reference: "PR-W16", status: "UNMATCHED" },
+];
+
+const bankReport = {
+  summary: { total_transactions: 24, unmatched: 3, matched: 18, reconciled: 3, unmatched_debits: 60000, unmatched_credits: 125000, total_credits: 350000, total_debits: 225000 },
+  by_account: [{ bank_account: "Primary", transactions: 24, unmatched: 3, net_balance: 125000 }],
+  reconciliation_rate: 87.5,
+};
+
+const kpiData = {
+  revenue: 515000, expenses: 80000, net_income: 435000,
+  outstanding_ar: 128500, outstanding_ap: 37200,
+  active_employees: 5, active_contracts: 3,
+};
+
+const demoWidgets = [
+  { id: "w1", title: "Revenue KPI", widget_type: "kpi", data_source: "kpi", config: null, position_x: 0, position_y: 0, width: 4, height: 2, is_visible: true },
+  { id: "w2", title: "Expense Trend", widget_type: "chart", data_source: "expense_chart", config: null, position_x: 4, position_y: 0, width: 4, height: 3, is_visible: true },
+  { id: "w3", title: "AR Aging", widget_type: "chart", data_source: "ar_aging", config: null, position_x: 8, position_y: 0, width: 4, height: 3, is_visible: true },
+];
+
+const demoDocs = [
+  { id: "d1", name: "Contract FA8101-26-C-0001", original_filename: "DoD_IT_Modernization_Contract.pdf", mime_type: "application/pdf", file_size: 2450000, entity_type: "contract", entity_id: "ct1", description: "Signed contract document", tags: ["dcaa", "dod", "2026"], category: "Contract", created_at: "2026-01-05T10:00:00Z" },
+  { id: "d2", name: "Q1 Invoice Backup", original_filename: "INV-001_backup.xlsx", mime_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", file_size: 185000, entity_type: "invoice", entity_id: "i1", description: "Invoice supporting documentation", tags: ["q1", "invoice"], category: "Invoice", created_at: "2026-04-01T14:00:00Z" },
+  { id: "d3", name: "Security Audit Report", original_filename: "DHS_Security_Audit_2026.pdf", mime_type: "application/pdf", file_size: 5200000, entity_type: "project", entity_id: "p3", description: "Cybersecurity assessment deliverable", tags: ["audit", "security", "dhs"], category: "Report", created_at: "2026-04-10T09:30:00Z" },
+];
+
+const demoScheduledReports = [
+  { id: "sr1", name: "Monthly Trial Balance", report_type: "trial_balance", parameters: { date_range: "current_month" }, frequency: "monthly", delivery_method: "email", recipients: ["admin@talenttalk.com"], output_format: "pdf", is_active: true, last_run_at: "2026-04-01T06:00:00Z", next_run_at: "2026-05-01T06:00:00Z", created_at: "2026-01-15T10:00:00Z" },
+  { id: "sr2", name: "Weekly AR Aging", report_type: "ar_aging", parameters: {}, frequency: "weekly", delivery_method: "email", recipients: ["finance@talenttalk.com"], output_format: "csv", is_active: true, last_run_at: "2026-04-21T06:00:00Z", next_run_at: "2026-04-28T06:00:00Z", created_at: "2026-02-01T10:00:00Z" },
+];
+
 export function getDemoResponse(url: string, method: string): any {
   const path = url.replace(/^\/api/, '').replace(/\?.*$/, '');
   if (method === 'POST' && path === '/login') return { token: "demo-token", user: DEMO_USER };
-  if (method !== 'GET') return { message: 'Success' };
+
+  // Phase 7 POST endpoints
+  if (method === 'POST' && path === '/ai/ask') return aiDemoAnswer;
+  if (method === 'POST' && path === '/bank/import') return { message: "Imported 0 transactions (demo)", imported: 0, errors: [] };
+  if (method === 'POST' && path.startsWith('/bank/match/')) return { message: "Transaction matched successfully" };
+  if (method === 'POST' && path.startsWith('/scheduled-reports/') && path.endsWith('/run')) return { message: "Report triggered" };
+  if (method !== 'GET' && method !== 'POST') return { message: 'Success' };
+  if (method === 'POST') return { message: 'Created', id: 'demo-new' };
 
   // Report endpoints
   if (path === '/reports/trial-balance') return trialBalanceData;
   if (path === '/reports/balance-sheet') return balanceSheetData;
   if (path === '/reports/income-statement') return incomeStatementData;
+
+  // Phase 7 GET endpoints
+  if (path === '/ai/suggestions') return aiSuggestions;
+  if (path === '/ai/history') return paginate([]);
+  if (path === '/bank/unmatched') return paginate(bankUnmatched);
+  if (path === '/bank/reconciliation-report') return bankReport;
+  if (path === '/widgets') return { data: demoWidgets };
+  if (path === '/widgets/data/kpi') return kpiData;
+  if (path.startsWith('/widgets/data/')) return { labels: [], values: [] };
+  if (path === '/documents') return paginate(demoDocs);
+  if (path === '/documents/search') return paginate(demoDocs);
+  if (path === '/scheduled-reports') return paginate(demoScheduledReports);
+  if (path === '/health') return { status: "healthy", version: "1.0.0" };
+  if (path === '/docs') return { name: "GovCare ERP API", version: "1.0.0" };
 
   const routes: Record<string, any[]> = {
     '/accounts': accounts, '/vendors': vendors, '/customers': customers, '/contracts': contracts,

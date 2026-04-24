@@ -23,13 +23,26 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesOrderController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\AdminSetupController;
+use App\Http\Controllers\Api\HealthController;
+use App\Http\Controllers\Api\DocumentationController;
+use App\Http\Controllers\Api\AIAssistantController;
+use App\Http\Controllers\Api\BankReconciliationController;
+use App\Http\Controllers\Api\WidgetController;
+use App\Http\Controllers\Api\DocumentController;
+use App\Http\Controllers\Api\ScheduledReportController;
 
-// Public auth routes
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+// Public routes
+Route::get('/health', HealthController::class);
+Route::get('/docs', DocumentationController::class);
+
+// Auth routes (rate limited)
+Route::middleware('throttle:auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+});
 
 // Protected routes
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     // Auth
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -67,12 +80,40 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('purchase-orders', PurchaseOrderController::class);
     Route::apiResource('sales-orders', SalesOrderController::class);
 
-    // Reports
-    Route::prefix('reports')->group(function () {
+    // Reports (rate limited separately)
+    Route::middleware('throttle:reports')->prefix('reports')->group(function () {
         Route::get('/trial-balance', [ReportController::class, 'trialBalance']);
         Route::get('/income-statement', [ReportController::class, 'incomeStatement']);
         Route::get('/balance-sheet', [ReportController::class, 'balanceSheet']);
     });
+
+    // AI Financial Assistant (Phase 7)
+    Route::middleware('throttle:ai')->prefix('ai')->group(function () {
+        Route::post('/ask', [AIAssistantController::class, 'ask']);
+        Route::get('/suggestions', [AIAssistantController::class, 'suggestions']);
+        Route::get('/history', [AIAssistantController::class, 'history']);
+    });
+
+    // Bank Reconciliation (Phase 7)
+    Route::prefix('bank')->group(function () {
+        Route::middleware('throttle:uploads')->post('/import', [BankReconciliationController::class, 'import']);
+        Route::get('/unmatched', [BankReconciliationController::class, 'unmatched']);
+        Route::post('/match/{id}', [BankReconciliationController::class, 'match']);
+        Route::get('/reconciliation-report', [BankReconciliationController::class, 'reconciliationReport']);
+    });
+
+    // Dashboard Widgets (Phase 7)
+    Route::apiResource('widgets', WidgetController::class)->except(['show']);
+    Route::get('/widgets/data/{type}', [WidgetController::class, 'data']);
+
+    // Document Management (Phase 7)
+    Route::apiResource('documents', DocumentController::class);
+    Route::post('/documents/{id}/tags', [DocumentController::class, 'updateTags']);
+    Route::get('/documents/search', [DocumentController::class, 'search']);
+
+    // Scheduled Reports (Phase 7)
+    Route::apiResource('scheduled-reports', ScheduledReportController::class);
+    Route::post('/scheduled-reports/{id}/run', [ScheduledReportController::class, 'run']);
 
     // Admin Setup
     Route::prefix('admin')->group(function () {

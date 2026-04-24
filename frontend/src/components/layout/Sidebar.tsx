@@ -24,6 +24,10 @@ import {
   ScrollText,
   Settings,
   LogOut,
+  Bot,
+  FileSpreadsheet,
+  FolderOpen,
+  LayoutGrid,
 } from 'lucide-react';
 import { useAuthStore } from '../../lib/auth';
 import type { User } from '../../types';
@@ -96,6 +100,15 @@ const navGroups: NavGroup[] = [
       { label: 'Products', path: '/products', icon: <Package className="h-4 w-4" /> },
       { label: 'Purchase Orders', path: '/purchase-orders', icon: <ShoppingCart className="h-4 w-4" /> },
       { label: 'Sales Orders', path: '/sales-orders', icon: <Truck className="h-4 w-4" /> },
+    ],
+  },
+  {
+    title: 'ADVANCED',
+    items: [
+      { label: 'AI Assistant', path: '/ai-assistant', icon: <Bot className="h-4 w-4" /> },
+      { label: 'Bank Reconciliation', path: '/bank-reconciliation', icon: <FileSpreadsheet className="h-4 w-4" /> },
+      { label: 'Documents', path: '/documents', icon: <FolderOpen className="h-4 w-4" /> },
+      { label: 'Widget Builder', path: '/widget-builder', icon: <LayoutGrid className="h-4 w-4" /> },
     ],
   },
   {

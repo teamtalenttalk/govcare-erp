@@ -60,6 +60,10 @@ import MissingTimesheets from './pages/reports/MissingTimesheets';
 import TurnoverReport from './pages/reports/TurnoverReport';
 import DCAAAuditTrail from './pages/reports/DCAAAuditTrail';
 import IncurredCostSubmission from './pages/reports/IncurredCostSubmission';
+import AIAssistant from './pages/AIAssistant';
+import BankReconciliation from './pages/BankReconciliation';
+import DocumentManager from './pages/DocumentManager';
+import WidgetBuilder from './pages/WidgetBuilder';
 import AuditLog from './pages/AuditLog';
 import Users from './pages/Users';
 import Settings from './pages/Settings';
@@ -129,6 +133,10 @@ export default function App() {
         <Route path="/reports/turnover-report" element={<TurnoverReport />} />
         <Route path="/reports/dcaa-audit-trail" element={<DCAAAuditTrail />} />
         <Route path="/reports/incurred-cost-submission" element={<IncurredCostSubmission />} />
+        <Route path="/ai-assistant" element={<AIAssistant />} />
+        <Route path="/bank-reconciliation" element={<BankReconciliation />} />
+        <Route path="/documents" element={<DocumentManager />} />
+        <Route path="/widget-builder" element={<WidgetBuilder />} />
         <Route path="/audit-log" element={<AuditLog />} />
         <Route path="/users" element={<Users />} />
         <Route path="/settings" element={<Settings />} />
