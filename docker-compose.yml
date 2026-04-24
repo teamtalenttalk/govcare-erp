@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: govcare-erp
+    ports:
+      - "8080:80"
+    volumes:
+      - sqlite-data:/var/www/backend/database
+      - storage-data:/var/www/backend/storage
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_KEY=${APP_KEY:-base64:GENERATE_A_KEY_HERE}
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/backend/database/database.sqlite
+      - CACHE_STORE=file
+      - SESSION_DRIVER=file
+      - QUEUE_CONNECTION=database
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: PostgreSQL (uncomment to use instead of SQLite)
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: govcare-postgres
+  #   environment:
+  #     POSTGRES_DB: govcare_erp
+  #     POSTGRES_USER: govcare
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+
+volumes:
+  sqlite-data:
+  storage-data:
+  # postgres-data:
